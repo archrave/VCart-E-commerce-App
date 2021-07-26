@@ -1,12 +1,12 @@
-# Recipes App Project
+# Virtual Shopping App
  
 An android and iOS app to simulate an online shopping service via a virtual currency.
 
 ## Features 
  - Favorite button to mark and save your favourite products
  - Side Drawer to navigate 'Your Orders' and various other options
- - User could sell their own product
- - Filter feature to filter out desired products.
+ - Users could sell their own products
+ - Filter feature to filter out desired products
 
 ## Tools
 - Flutter v2.2.2 SDK
