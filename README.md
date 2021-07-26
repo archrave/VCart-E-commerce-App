@@ -1,16 +1,30 @@
-# shop_app
+# Recipes App Project
+ 
+An android and iOS app to simulate an online shopping service via a virtual currency.
 
-A new Flutter project.
+## Features 
+ - Favorite button to mark and save your favourite products
+ - Side Drawer to navigate 'Your Orders' and various other options
+ - User could sell their own product
+ - Filter feature to filter out desired products.
 
-## Getting Started
+## Tools
+- Flutter v2.2.2 SDK
+- Dart 2.13.3
+- Editor (VS Code or Android Studio)
 
-This project is a starting point for a Flutter application.
+## Instructions
 
-A few resources to get you started if this is your first Flutter project:
+All dart scripts are located inside the lib folder.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Widgets are inside Virtual-Shopping/lib/widgets/
+- Simple object models are in Virtual-Shopping/lib/models/
+- Different screen widgets are in Virtual-Shopping/lib/screens/
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To run this app on a virtual machine (mobile emulator), your android device or your web browser, just clone the project, open your terminal inside that folder and use this command: 
+```
+flutter run
+```
+(Must have flutter in the system PATH, and USB Debugging enabled if you're using an Andriod device)
+
+Note: App is under development at this stage
