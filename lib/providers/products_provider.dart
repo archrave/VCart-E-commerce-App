@@ -38,10 +38,32 @@ class Products with ChangeNotifier {
     ),
   ];
 
+  // These favorite properties and methods were used here (in the Provider class) only ifwe want to have an app wide filter.
+  // bool _showFavoritesOnly = false;
+
 // Made this copy of the above private list because when we change data in this list via some other widget , we wouldn't be able to run the notifylisteners() function to let all the other  widgets know that the data has been changed
   List<Product> get items {
+    // if (_showFavoritesOnly) {
+    //   return _items.where((element) => element.isFavorite == true).toList();
+    // }
     return [..._items];
   }
+
+  List<Product> get favoriteItems {
+    // if (_showFavoritesOnly) {
+    //   return _items.where((element) => element.isFavorite == true).toList();
+    // }
+    return _items.where((element) => element.isFavorite == true).toList();
+  }
+  // void showFavoritesOnly() {
+  //   _showFavoritesOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavoritesOnly = false;
+  //   notifyListeners();
+  // }
 
 // Defined a logic to get all the data of a particular product just using it's id (provided we already have the id)
   Product findById(String getId) {

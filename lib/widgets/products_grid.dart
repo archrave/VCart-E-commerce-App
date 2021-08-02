@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/products_provider.dart';
-import '../providers/product.dart';
 import '../widgets/product_item.dart';
 
 class ProductsGrid extends StatelessWidget {
+  final bool onlyFavorites;
+  ProductsGrid(this.onlyFavorites);
+
   @override
   Widget build(BuildContext context) {
     /* So, 'Provider.' basically allows us to use the provided CLASSES
@@ -13,7 +15,8 @@ class ProductsGrid extends StatelessWidget {
     /*AND to use that provided class we also need to set up a provider
     widget (as we did in main.dart (ChangeNotifierProvider) ; in some part widget of this curret widget that we're using*/
     final productsData = Provider.of<Products>(context);
-    final products = productsData.items;
+    final products =
+        onlyFavorites ? productsData.favoriteItems : productsData.items;
     return GridView.builder(
       padding: const EdgeInsets.all(10),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
