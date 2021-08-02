@@ -1,6 +1,6 @@
 // with keyword adds a 'mixin' which is basically 'inheritance-lite'
-import 'package:flutter/cupertino.dart';
-import '../models/product.dart';
+import 'package:flutter/material.dart';
+import './product.dart';
 
 class Products with ChangeNotifier {
   List<Product> _items = [
@@ -37,8 +37,6 @@ class Products with ChangeNotifier {
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
     ),
   ];
-
-  List<Product> _productList = [];
 
 // Made this copy of the above private list because when we change data in this list via some other widget , we wouldn't be able to run the notifylisteners() function to let all the other  widgets know that the data has been changed
   List<Product> get items {

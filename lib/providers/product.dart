@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-class Product {
+// Added this ChangeNotifier so that whenever a Favorite (at this stage only for the favorite value) value changes, it notifies all listeners
+class Product with ChangeNotifier {
   final String id;
   final String title;
   final String description;
@@ -14,4 +15,10 @@ class Product {
       @required this.price,
       @required this.imageUrl,
       this.isFavorite = false});
+
+  void toggleFavoriteStatus() {
+    isFavorite = !isFavorite;
+    //It's safe to say that this notifyListeners() function is kind of like setState()
+    notifyListeners();
+  }
 }
