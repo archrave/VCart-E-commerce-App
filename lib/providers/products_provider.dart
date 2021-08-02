@@ -45,6 +45,11 @@ class Products with ChangeNotifier {
     return [..._items];
   }
 
+// Defined a logic to get all the data of a particular product just using it's id (provided we already have the id)
+  Product findById(String getId) {
+    return items.firstWhere((element) => getId == element.id);
+  }
+
   void addProduct() {
     // Establishes a communication channel with the listeners of this particular provider
     notifyListeners();
