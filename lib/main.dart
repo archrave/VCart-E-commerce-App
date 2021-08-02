@@ -16,6 +16,7 @@ class ShopApp extends StatelessWidget {
 
     // Following is the most commonly used provider, it allows us to listen to a class, and whenever that class updates, it rebuilds only those widgets which were listening to the data.
 
+    // .value approach isn't good here since we're creating a BRAND new instance of this Products() class
     return ChangeNotifierProvider(
       //create: instead of builder: in provider v5.0
 

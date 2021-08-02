@@ -23,13 +23,17 @@ class ProductsGrid extends StatelessWidget {
           mainAxisSpacing: 10),
       itemCount: products.length,
       itemBuilder: (context, index) {
-        return ChangeNotifierProvider(
-          create: (ctx) => products[index],
-          child: ProductItem(
-              // id: products[index].id,
-              // title: products[index].title,
-              // imageUrl: products[index].imageUrl,
-              ),
+        /* This .value syntax doesn't take the context as the create: syntax does
+           Advantage of using .value is that the widget under it will surely rebuild;
+           unlike in the previous case where only the data gets updated and the widget gets 
+           recycled, which might result in errors. So .value is the correct apporach whenever
+           we are using ListView/Gridview or any builder */
+
+        return ChangeNotifierProvider.value(
+          value: products[index],
+          // ChangeNotifierProvider(
+          //   create: (ctx) => products[index],
+          child: ProductItem(),
         );
       },
     );
