@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './screens/products_screen.dart';
-import './screens/product_detail_screen.dart';
 import './providers/products_provider.dart';
 import './providers/cart.dart';
+import '../screens/cart_screen.dart';
+import './screens/products_screen.dart';
+import './screens/product_detail_screen.dart';
 
 void main() {
   runApp(ShopApp());
@@ -33,6 +34,7 @@ class ShopApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Shop App',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Color(0xFF785bcf),
           accentColor: Color(0xFFe6505d),
@@ -41,6 +43,7 @@ class ShopApp extends StatelessWidget {
         home: ProductsScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+          CartScreen.routeName: (ctx) => CartScreen(),
         },
       ),
     );

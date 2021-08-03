@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/products_provider.dart';
+import '../providers/cart.dart';
+import '../screens/cart_screen.dart';
+import '../widgets/badge.dart';
 import '../widgets/products_grid.dart';
 
 enum FilterOptions {
@@ -19,6 +22,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context, listen: false);
+    //final cart = Provider.of<Cart>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -44,7 +48,20 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 value: FilterOptions.All,
               ),
             ],
-          )
+          ),
+          // Here also we used a Consumer because we want to rebuild this iconbutton widget below
+          Consumer<Cart>(
+            builder: (ctx, cart, iconButtonChild) => Badge(
+              child: iconButtonChild,
+              value: cart.cartLength.toString(),
+            ),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+              icon: Icon(Icons.shopping_cart),
+            ),
+          ),
         ],
       ),
 
