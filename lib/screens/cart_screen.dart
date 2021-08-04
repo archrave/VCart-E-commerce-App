@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart.dart';
+import '../providers/orders.dart';
 import '../widgets/CartUI.dart';
 
 class CartScreen extends StatelessWidget {
@@ -22,11 +23,10 @@ class CartScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total',
+                    'Total:  ',
                     style: TextStyle(fontSize: 20),
                   ),
                   //Takes all the available space in between and reserves for itself
-                  Spacer(),
                   Chip(
                     label: Text(
                       '₹${cartData.sumTotal}',
@@ -36,8 +36,13 @@ class CartScreen extends StatelessWidget {
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
+                  Spacer(),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrders(
+                          cartData.items.values.toList(), cartData.sumTotal);
+                      cartData.clear();
+                    },
                     child: Text('Place Order'),
                   ),
                 ],
