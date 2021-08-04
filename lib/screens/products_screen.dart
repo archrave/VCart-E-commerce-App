@@ -5,6 +5,7 @@ import '../providers/cart.dart';
 import '../screens/cart_screen.dart';
 import '../widgets/badge.dart';
 import '../widgets/products_grid.dart';
+import '../widgets/main_drawer.dart';
 
 enum FilterOptions {
   Favorites,
@@ -64,7 +65,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ),
         ],
       ),
-
+      drawer: MainDrawer(),
       //Moved the Gridview.builder() to a separate widget so that the appBar above doesn't rebuild unnecessarily.
 
       body: ProductsGrid(_showOnlyFavs),

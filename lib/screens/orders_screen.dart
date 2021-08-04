@@ -4,6 +4,8 @@ import '../providers/orders.dart';
 import '../widgets/orderUI.dart';
 
 class OrdersScreen extends StatelessWidget {
+  static const routeName = '/orders-screen';
+
   @override
   Widget build(BuildContext context) {
     final orderData = Provider.of<Orders>(context);
@@ -11,11 +13,14 @@ class OrdersScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Your Orders'),
       ),
-      body: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return OrderUI(orderData.orders[index]);
-        },
-        itemCount: orderData.orders.length,
+      body: Container(
+        height: 300,
+        child: ListView.builder(
+          itemBuilder: (ctx, index) {
+            return OrderUI(orderData.orders[index]);
+          },
+          itemCount: orderData.orders.length,
+        ),
       ),
     );
   }
