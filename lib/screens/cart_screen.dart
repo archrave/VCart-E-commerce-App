@@ -29,7 +29,7 @@ class CartScreen extends StatelessWidget {
                   //Takes all the available space in between and reserves for itself
                   Chip(
                     label: Text(
-                      '₹${cartData.sumTotal}',
+                      '₹${cartData.sumTotal.toStringAsFixed(2)}',
                       style: TextStyle(
                           color:
                               Theme.of(context).primaryTextTheme.title.color),

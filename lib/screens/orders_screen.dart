@@ -13,15 +13,23 @@ class OrdersScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Your Orders'),
       ),
-      body: Container(
-        height: 300,
-        child: ListView.builder(
-          itemBuilder: (ctx, index) {
-            return OrderUI(orderData.orders[index]);
-          },
-          itemCount: orderData.orders.length,
-        ),
-      ),
+      body: orderData.orders.isEmpty
+          ? Center(
+              child: Text(
+              'Your Orders are empty. Try buying some products!',
+              style: TextStyle(fontSize: 20, color: Colors.grey),
+              textAlign: TextAlign.center,
+              softWrap: true,
+            ))
+          : Container(
+              height: 300,
+              child: ListView.builder(
+                itemBuilder: (ctx, index) {
+                  return OrderUI(orderData.orders[index]);
+                },
+                itemCount: orderData.orders.length,
+              ),
+            ),
     );
   }
 }
