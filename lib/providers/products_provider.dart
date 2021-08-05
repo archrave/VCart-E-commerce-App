@@ -70,8 +70,15 @@ class Products with ChangeNotifier {
     return items.firstWhere((element) => getId == element.id);
   }
 
-  void addProduct() {
-    // Establishes a communication channel with the listeners of this particular provider
+  void addProduct(Product product) {
+    final newProduct = Product(
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      id: DateTime.now().toString(),
+    );
+    _items.add(newProduct);
     notifyListeners();
   }
 }
