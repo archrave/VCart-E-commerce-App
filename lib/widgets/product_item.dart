@@ -43,10 +43,12 @@ class ProductItem extends StatelessWidget {
             ),
           ),
           trailing: IconButton(
+
+              //After adding an item we're also displaying a snackbar notifier
               onPressed: () {
                 cart.addItem(product.id, product.price, product.title);
-                Scaffold.of(context).hideCurrentSnackBar();
-                Scaffold.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text('Added to Cart!'),
                   duration: Duration(seconds: 3),
                   action: SnackBarAction(
