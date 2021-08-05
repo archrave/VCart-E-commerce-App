@@ -22,7 +22,7 @@ class OrdersScreen extends StatelessWidget {
               softWrap: true,
             ))
           : Container(
-              height: 300,
+              height: double.infinity,
               child: ListView.builder(
                 itemBuilder: (ctx, index) {
                   return OrderUI(orderData.orders[index]);
