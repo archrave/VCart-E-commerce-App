@@ -40,7 +40,7 @@ An android and iOS app to simulate an online shopping service via a virtual curr
 All dart scripts are located inside the lib folder.
 
 - Widgets are inside Virtual-Shopping/lib/widgets/
-- Simple object models are in Virtual-Shopping/lib/models/
+- App-wide data is stored in Provider classes are in Virtual-Shopping/lib/providers/
 - Different screen widgets are in Virtual-Shopping/lib/screens/
 
 To run this app on a virtual machine (mobile emulator), your android device or your web browser, just clone the project, open your terminal inside that folder and use this command: 
