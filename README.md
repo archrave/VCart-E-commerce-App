@@ -36,11 +36,11 @@ An android and iOS app to simulate an online shopping service via a virtual curr
    <img src="./screenshots/shopapp (9).png" width="230" title="hover text">
 <br />
 <br />
-   <img src="./screenshots/shopapp (9).png" width="230" title="hover text">
+   <img src="./screenshots/shopapp (10).png" width="230" title="hover text">
 &nbsp;
-   <img src="./screenshots/shopapp (9).png" width="230" title="hover text">
+   <img src="./screenshots/shopapp (11).png" width="230" title="hover text">
 &nbsp;
-   <img src="./screenshots/shopapp (9).png" width="230" title="hover text">
+   <img src="./screenshots/shopapp (12).png" width="230" title="hover text">
 </p>
 
 ## Instructions
