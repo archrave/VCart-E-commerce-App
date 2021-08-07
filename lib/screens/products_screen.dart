@@ -19,6 +19,24 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   bool _showOnlyFavs = false;
+  bool _isInit = true;
+  bool _isLoading = true;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Products>(context).FetchProducts().then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +86,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
       drawer: MainDrawer(),
       //Moved the Gridview.builder() to a separate widget so that the appBar above doesn't rebuild unnecessarily.
 
-      body: ProductsGrid(_showOnlyFavs),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductsGrid(_showOnlyFavs),
     );
   }
 }
