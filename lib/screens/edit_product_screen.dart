@@ -77,7 +77,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     setState(() {});
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     final _isValid = _form.currentState.validate();
     if (!_isValid) return;
     _form.currentState.save();
@@ -93,15 +93,33 @@ class _EditProductScreenState extends State<EditProductScreen> {
       });
       Navigator.of(context).pop();
     } else {
-      Provider.of<Products>(context, listen: false)
-          .addProduct(_editedProduct)
-          .then((_) {
+      try {
+        await Provider.of<Products>(context, listen: false)
+            .addProduct(_editedProduct);
+      } catch (error) {
+        await showDialog<Null>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('An error occured!'),
+            content: Text(
+                'Something went wrong. Check your internet connection and try again.'),
+            actions: [
+              FlatButton(
+                child: Text('Close'),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      } finally {
         setState(() {
           _isLoading = false;
         });
         //  Calling the pop only after the future function post request returns a response, unitll then a loading screen will be displayed
         Navigator.of(context).pop();
-      });
+      }
     }
   }
 

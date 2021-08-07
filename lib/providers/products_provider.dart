@@ -55,20 +55,20 @@ class Products with ChangeNotifier {
   }
 
 // changed the following function to return a future since we want a loading screen
-  Future<void> addProduct(Product product) {
-    final url = Uri.parse(
-        'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
-    return http
-        .post(url,
-            body: json.encode({
-              'title': product.title,
-              'description': product.description,
-              'price': product.price,
-              'imageUrl': product.imageUrl,
-              'isFavorite': product.isFavorite,
-            }))
-        .then((response) {
-      print(json.decode(response.body));
+  Future<void> addProduct(Product product) async {
+    try {
+      final url = Uri.parse(
+          'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'price': product.price,
+          'imageUrl': product.imageUrl,
+          'isFavorite': product.isFavorite,
+        }),
+      );
       final newProduct = Product(
         title: product.title,
         description: product.description,
@@ -80,7 +80,10 @@ class Products with ChangeNotifier {
       );
       _items.add(newProduct);
       notifyListeners();
-    });
+    } catch (error) {
+      print(error);
+      throw error;
+    }
   }
 
   void updateProduct(String id, Product newProduct) {
