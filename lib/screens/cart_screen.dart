@@ -37,14 +37,17 @@ class CartScreen extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   Spacer(),
-                  FlatButton(
-                    onPressed: () {
-                      Provider.of<Orders>(context, listen: false).addOrders(
-                          cartData.items.values.toList(), cartData.sumTotal);
-                      cartData.clear();
-                    },
-                    child: Text('Place Order'),
-                  ),
+
+                  // cartData.items.isEmpty
+                  //     ? Padding(
+                  //         padding: const EdgeInsets.only(right: 16),
+                  //         child: Text(
+                  //           'Place Order',
+                  //           style: TextStyle(color: Colors.grey),
+                  //         ),
+                  //       )
+                  //     :
+                  OrderButton(cartData: cartData),
                 ],
               ),
             ),
@@ -67,6 +70,41 @@ class CartScreen extends StatelessWidget {
           ))
         ],
       ),
+    );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  final Cart cartData;
+  const OrderButton({
+    @required this.cartData,
+  });
+
+  @override
+  _OrderButtonState createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      onPressed: (widget.cartData.items.isEmpty || _isLoading)
+          ? null
+          : () async {
+              setState(() {
+                _isLoading = true;
+              });
+              await Provider.of<Orders>(context, listen: false).addOrder(
+                  widget.cartData.items.values.toList(),
+                  widget.cartData.sumTotal);
+              setState(() {
+                _isLoading = false;
+              });
+              widget.cartData.clear();
+            },
+      child: _isLoading ? CircularProgressIndicator() : Text('Place Order'),
     );
   }
 }

@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 // Added this ChangeNotifier so that whenever a Favorite (at this stage only for the favorite value) value changes, it notifies all listeners
 class Product with ChangeNotifier {
@@ -16,9 +18,26 @@ class Product with ChangeNotifier {
       @required this.imageUrl,
       this.isFavorite = false});
 
-  void toggleFavoriteStatus() {
-    isFavorite = !isFavorite;
-    //It's safe to say that this notifyListeners() function is kind of like setState()
+  void _setFavValue(bool newValue) {
+    isFavorite = newValue;
     notifyListeners();
+  }
+
+  Future<void> toggleFavoriteStatus() async {
+    final oldStatus = isFavorite;
+    isFavorite = !isFavorite;
+    notifyListeners();
+    try {
+      final url = Uri.parse(
+          'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products/$id.json');
+      final response =
+          await http.patch(url, body: json.encode({'isFavorite': isFavorite}));
+      if (response.statusCode >= 400) {
+        _setFavValue(oldStatus);
+      }
+    } catch (error) {
+      _setFavValue(oldStatus);
+    }
+    // It's safe to say that this notifyListeners() function is kind of like setState()
   }
 }
