@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import './product.dart';
+import '../models/http_exception.dart';
 
 class Products with ChangeNotifier {
   List<Product> _items = [
@@ -129,13 +130,29 @@ class Products with ChangeNotifier {
     }
   }
 
-  void deleteProduct(String id) {
-    final dltIndex = _items.indexWhere((element) => element.id == id);
-    if (dltIndex >= 0) {
-      _items.removeAt(dltIndex);
+  Future<void> deleteProduct(String id) async {
+    final url = Uri.parse(
+        'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products/$id.json');
+    final existingProductIndex =
+        _items.indexWhere((element) => id == element.id);
+
+    var existingProduct = _items[existingProductIndex];
+
+    _items.removeAt(existingProductIndex);
+    notifyListeners();
+
+    // This approach makes sure that if any error occurs while sending the delte http request, we can store the deleted product in memory and insert it back into our main list in the memory so that it's still there.
+    // This approach is also called optimistic updating
+    final response = await http.delete(url);
+
+    // Here we're defining our own error since catcherror doesnt get executed in http.delete  for some reason, unlike get and post.
+    if (response.statusCode >= 400) {
+      _items.insert(existingProductIndex, existingProduct);
       notifyListeners();
-    } else {
-      print('Deleting product failed.......');
+      // I would've just used Exception here, but dart team encourages to make your own Exception classes, so did that
+      throw HttpException('Could not delete product!');
     }
+    // Throw is like, return . the function execution will stop in if()
+    existingProduct = null;
   }
 }
