@@ -7,6 +7,8 @@ An android and iOS app to simulate an online shopping service via a virtual curr
  - Side drawer to navigate 'Your Orders' and various other options
  - State management using the provider package
  - Users could sell their own products
+ - Firebase for maintaining backend
+ - User Authentication system
 
 ## Tools
 - Flutter v2.2.2 SDK
