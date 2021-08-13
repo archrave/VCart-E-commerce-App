@@ -28,14 +28,19 @@ class ShopApp extends StatelessWidget {
       providers: [
         //create: instead of builder: in provider v5.0
 
-        /* This create:/builder: method below basically provides the SAME instance to all the widget below this wiget tree
-          which means the same Object of the 'Providers' class, through which we can acces the same 'item' list  */
+        /* This create:/builder: method below basically provides the SAME instance to all the widgets below this widget tree
+          which means the same Object of the 'Providers' class, through which we can acces the same 'items' list  */
 
+        /* We have to make sure that Auth provider is declared at the top, so that the proxyprovider (products) can depend on it. */
         ChangeNotifierProvider(
           create: (ctx) => Auth(),
         ),
-        ChangeNotifierProvider(
-          create: (ctx) => Products(),
+        ChangeNotifierProxyProvider<Auth, Products>(
+          //  2nd arg. is the above Auth object, and the 3rd one is the previous Products() object
+          update: (ctx, auth, previousProducts) => Products(
+            auth.token,
+            previousProducts == null ? [] : previousProducts.items,
+          ),
         ),
         ChangeNotifierProvider(
           create: (ctx) => Cart(),

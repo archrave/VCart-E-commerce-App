@@ -173,7 +173,6 @@ class _AuthCardState extends State<AuthCard> {
     setState(() {
       _isLoading = false;
     });
-    setState(() {});
   }
 
   void _switchAuthMode() {
