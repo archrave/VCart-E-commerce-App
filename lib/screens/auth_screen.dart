@@ -143,6 +143,8 @@ class _AuthCardState extends State<AuthCard> {
           _authData['password'],
         );
       }
+      setState(() {}); // This fixed the loading spinner error somehow ^_^
+
     } on HttpException catch (error) {
       var errorMessage = 'Authentication failed.';
       if (error.toString().contains('EMAIL_EXISTS')) {
@@ -161,7 +163,7 @@ class _AuthCardState extends State<AuthCard> {
         errorMessage = 'Incorrect password! Please try again.';
       }
       _showErrorDialog(errorMessage);
-      setState(() {}); // This fixed the loading spinner error somehow ^_^
+      setState(() {});
     } catch (error) {
       const errorMessage =
           'Could not authenticate you. Please try again later.';
@@ -171,6 +173,7 @@ class _AuthCardState extends State<AuthCard> {
     setState(() {
       _isLoading = false;
     });
+    setState(() {});
   }
 
   void _switchAuthMode() {
