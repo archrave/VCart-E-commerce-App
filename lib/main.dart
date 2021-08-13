@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import './providers/auth.dart';
 import './providers/products_provider.dart';
 import './providers/cart.dart';
 import './providers/orders.dart';
@@ -9,6 +10,7 @@ import './screens/products_screen.dart';
 import './screens/product_detail_screen.dart';
 import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
+import './screens/auth_screen.dart';
 
 void main() {
   runApp(ShopApp());
@@ -30,6 +32,9 @@ class ShopApp extends StatelessWidget {
           which means the same Object of the 'Providers' class, through which we can acces the same 'item' list  */
 
         ChangeNotifierProvider(
+          create: (ctx) => Auth(),
+        ),
+        ChangeNotifierProvider(
           create: (ctx) => Products(),
         ),
         ChangeNotifierProvider(
@@ -47,7 +52,7 @@ class ShopApp extends StatelessWidget {
           accentColor: Color(0xFFe6505d),
           fontFamily: 'Lato',
         ),
-        home: ProductsScreen(),
+        home: AuthScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
