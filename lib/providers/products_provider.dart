@@ -8,7 +8,7 @@ import '../models/http_exception.dart';
 class Products with ChangeNotifier {
   List<Product> _items = [];
 
-// Made this copy of the above private list because when we change data in this list via some other widget , we wouldn't be able to run the notifylisteners() function to let all the other  widgets know that the data has been changed
+// Made this copy of the above private list because when we change data in this list via some other widget, we wouldn't be able to run the notifylisteners() function to let all the other  widgets know that the data has been changed
   List<Product> get items {
     return [..._items];
   }
@@ -58,7 +58,7 @@ class Products with ChangeNotifier {
   Future<void> addProduct(Product product) async {
     try {
       final url = Uri.parse(
-          'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
+          'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?auth=$authToken');
       final response = await http.post(
         url,
         body: json.encode({
@@ -90,7 +90,7 @@ class Products with ChangeNotifier {
     final prodIndex = _items.indexWhere((element) => element.id == id);
     if (prodIndex >= 0) {
       final url = Uri.parse(
-          'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products/$id.json');
+          'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products/$id.json?auth=$authToken');
       await http.patch(url,
           body: json.encode({
             'title': newProduct.title,
@@ -107,7 +107,7 @@ class Products with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     final url = Uri.parse(
-        'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products/$id.json');
+        'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products/$id.json?auth=$authToken');
     final existingProductIndex =
         _items.indexWhere((element) => id == element.id);
 

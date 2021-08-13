@@ -26,6 +26,7 @@ class Auth with ChangeNotifier {
     final url = Uri.parse(
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyBtiOe-9UFsfDl7nV570bpg_QagGyT7fDc');
     try {
+      print('*** before awaiting for the post req');
       final response = await http.post(
         url,
         body: json.encode(
@@ -36,7 +37,7 @@ class Auth with ChangeNotifier {
           },
         ),
       );
-      print('** awaited for post request in authenticate');
+      print('**** awaited for post request in authenticate');
       final responseData = json.decode(response.body);
       print(responseData);
       if (responseData['error'] != null) {
