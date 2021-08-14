@@ -24,11 +24,12 @@ class Orders with ChangeNotifier {
   }
 
   final String authToken;
-  Orders(this.authToken, this._orders);
+  final String userId;
+  Orders(this.authToken, this.userId, this._orders);
 
   Future<void> fetchOrders() async {
     final url = Uri.parse(
-        'https://virtual-shop-flutter-default-rtdb.firebaseio.com/orders.json?auth=$authToken');
+        'https://virtual-shop-flutter-default-rtdb.firebaseio.com/orders/$userId.json?auth=$authToken');
     final response = await http.get(url);
     print(json.decode(response.body).runtimeType);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -63,7 +64,7 @@ class Orders with ChangeNotifier {
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url = Uri.parse(
-        'https://virtual-shop-flutter-default-rtdb.firebaseio.com/orders.json?auth=$authToken');
+        'https://virtual-shop-flutter-default-rtdb.firebaseio.com/orders/$userId.json?auth=$authToken');
     final DateTime timestamp = DateTime.now();
     final response = await http.post(url,
         body: json.encode({
