@@ -14,8 +14,9 @@ class Products with ChangeNotifier {
   }
 
   final String authToken;
+  final String userId;
 
-  Products(this.authToken, this._items);
+  Products(this.authToken, this.userId, this._items);
 
   List<Product> get favoriteItems {
     return _items.where((element) => element.isFavorite == true).toList();
@@ -32,11 +33,16 @@ class Products with ChangeNotifier {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      final List<Product> loadedProducts = [];
       if (extractedData == null) {
         _items = [];
         return;
       }
+      final favUrl = Uri.parse(
+          'https://virtual-shop-flutter-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken');
+
+      final favoriteResponse = await http.get(favUrl);
+      final favoriteData = json.decode(favoriteResponse.body);
+      final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
           id: prodId,
@@ -44,7 +50,9 @@ class Products with ChangeNotifier {
           description: prodData['description'],
           price: prodData['price'],
           imageUrl: prodData['imageUrl'],
-          isFavorite: prodData['isFavorite'],
+          // This double ? checks whether the value to its left is null or not, and if so, it assigns the value to its right
+          isFavorite:
+              favoriteData == null ? false : favoriteData[prodId] ?? false,
         ));
       });
       _items = loadedProducts;

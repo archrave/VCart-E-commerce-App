@@ -39,6 +39,7 @@ class ShopApp extends StatelessWidget {
           //  2nd arg. is the above Auth object, and the 3rd one is the previous Products() object
           update: (ctx, auth, previousProducts) => Products(
             auth.token,
+            auth.userId,
             previousProducts == null ? [] : previousProducts.items,
           ),
         ),
