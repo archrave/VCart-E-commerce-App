@@ -29,7 +29,7 @@ class Product with ChangeNotifier {
     notifyListeners();
     try {
       final url = Uri.parse(
-          'https://flutter-shop-app-6565c-default-rtdb.asia-southeast1.firebasedatabase.app/products/$id.json?auth=$token');
+          'https://virtual-shop-flutter-default-rtdb.firebaseio.com/products/$id.json?auth=$token');
       final response =
           await http.patch(url, body: json.encode({'isFavorite': isFavorite}));
       if (response.statusCode >= 400) {
