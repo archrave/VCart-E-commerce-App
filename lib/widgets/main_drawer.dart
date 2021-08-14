@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../screens/orders_screen.dart';
 import '../screens/user_products_screen.dart';
+import '../screens/products_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -19,6 +20,18 @@ class MainDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               )),
           ListTile(
+            leading: Icon(Icons.home),
+            title: Text(
+              'Home',
+              style: TextStyle(fontSize: 15),
+            ),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(ProductsScreen.routeName);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.pages),
             title: Text(
               'My Orders',
               style: TextStyle(fontSize: 15),
@@ -28,9 +41,11 @@ class MainDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Manage products', style: TextStyle(fontSize: 15)),
+            leading: Icon(Icons.manage_accounts),
+            title: Text('Manage your products', style: TextStyle(fontSize: 15)),
             onTap: () {
-              Navigator.of(context).pushNamed(UserProductsScreen.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(UserProductsScreen.routeName);
             },
           ),
         ],

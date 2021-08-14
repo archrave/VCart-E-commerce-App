@@ -13,7 +13,7 @@ class ProductsGrid extends StatelessWidget {
     (in out case we're only using 'Providers class' yet) */
 
     /*AND to use that provided class we also need to set up a provider
-    widget (as we did in main.dart (ChangeNotifierProvider) ; in some part widget of this curret widget that we're using*/
+    widget (as we did in main.dart (ChangeNotifierProvider) ; in some part widget of this current widget that we're using*/
     final productsData = Provider.of<Products>(context);
     final products =
         onlyFavorites ? productsData.favoriteItems : productsData.items;

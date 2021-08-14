@@ -143,7 +143,7 @@ class _AuthCardState extends State<AuthCard> {
           _authData['password'],
         );
       }
-      setState(() {}); // This fixed the loading spinner error somehow ^_^
+      // setState(() {}); // This fixed the loading spinner error somehow ^_^ (i realised that didnt solve it, and the error was from firebase only ig)
 
     } on HttpException catch (error) {
       var errorMessage = 'Authentication failed.';
@@ -163,12 +163,12 @@ class _AuthCardState extends State<AuthCard> {
         errorMessage = 'Incorrect password! Please try again.';
       }
       _showErrorDialog(errorMessage);
-      setState(() {});
+      //setState(() {});
     } catch (error) {
       const errorMessage =
           'Could not authenticate you. Please try again later.';
       _showErrorDialog(errorMessage);
-      setState(() {});
+      //setState(() {});
     }
     setState(() {
       _isLoading = false;

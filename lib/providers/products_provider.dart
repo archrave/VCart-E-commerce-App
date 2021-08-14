@@ -27,9 +27,11 @@ class Products with ChangeNotifier {
     return items.firstWhere((element) => getId == element.id);
   }
 
-  Future<void> fetchProducts() async {
-    final url = Uri.parse(
-        'https://virtual-shop-flutter-default-rtdb.firebaseio.com/products.json?auth=$authToken');
+  Future<void> fetchProducts([bool filterByUser = false]) async {
+    final filterString =
+        filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+    var url = Uri.parse(
+        'https://virtual-shop-flutter-default-rtdb.firebaseio.com/products.json?auth=$authToken&$filterString');
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -48,7 +50,7 @@ class Products with ChangeNotifier {
           id: prodId,
           title: prodData['title'],
           description: prodData['description'],
-          price: prodData['price'],
+          price: prodData['price'] + .0,
           imageUrl: prodData['imageUrl'],
           // This double ? checks whether the value to its left is null or not, and if so, it assigns the value to its right
           isFavorite:
@@ -72,9 +74,10 @@ class Products with ChangeNotifier {
         body: json.encode({
           'title': product.title,
           'description': product.description,
-          'price': product.price,
+          'price': product.price + .0,
           'imageUrl': product.imageUrl,
           'isFavorite': product.isFavorite,
+          'creatorId': userId, //Storing this only on the server
         }),
       );
       final newProduct = Product(
@@ -104,7 +107,7 @@ class Products with ChangeNotifier {
             'title': newProduct.title,
             'description': newProduct.description,
             'imageUrl': newProduct.imageUrl,
-            'price': newProduct.price,
+            'price': newProduct.price + .0,
           }));
       _items[prodIndex] = newProduct;
       notifyListeners();

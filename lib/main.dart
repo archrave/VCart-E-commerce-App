@@ -64,6 +64,7 @@ class ShopApp extends StatelessWidget {
           ),
           home: auth.isAuth ? ProductsScreen() : AuthScreen(),
           routes: {
+            ProductsScreen.routeName: (ctx) => ProductsScreen(),
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
             CartScreen.routeName: (ctx) => CartScreen(),
             OrdersScreen.routeName: (ctx) => OrdersScreen(),

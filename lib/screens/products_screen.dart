@@ -13,36 +13,38 @@ enum FilterOptions {
 }
 
 class ProductsScreen extends StatefulWidget {
+  static const routeName = '/products-screen';
+
   @override
   _ProductsScreenState createState() => _ProductsScreenState();
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
   bool _showOnlyFavs = false;
-  bool _isInit = true;
+  // bool _isInit = true;
   bool _isLoading = true;
 
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+    //if (_isInit) {
+    setState(() {
+      _isLoading = true;
+    });
+    Provider.of<Products>(context).fetchProducts(false).then((value) {
       setState(() {
-        _isLoading = true;
+        _isLoading = false;
       });
-      Provider.of<Products>(context).fetchProducts().then((value) {
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    }
-    _isInit = false;
+    });
+    //}
+    //_isInit = false;
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<Products>(context, listen: false);
-    //final cart = Provider.of<Cart>(context, listen: false);
-
+    // final productsData = Provider.of<Products>(context, listen: false);
+    // final cart = Provider.of<Cart>(context, listen: false);
+    print('> Products screen build starts!');
     return Scaffold(
       appBar: AppBar(
         title: Text('Virtual Shop'),
@@ -84,7 +86,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
         ],
       ),
       drawer: MainDrawer(),
-      //Moved the Gridview.builder() to a separate widget so that the appBar above doesn't rebuild unnecessarily.
+      // Moved the Gridview.builder() to a separate widget so that the appBar above doesn't rebuild unnecessarily.
 
       body: _isLoading
           ? Center(
