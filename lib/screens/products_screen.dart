@@ -21,22 +21,24 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   bool _showOnlyFavs = false;
-  // bool _isInit = true;
+  bool _isInit = true;
   bool _isLoading = true;
 
   @override
   void didChangeDependencies() {
-    //if (_isInit) {
-    setState(() {
-      _isLoading = true;
-    });
-    Provider.of<Products>(context).fetchProducts(false).then((value) {
+    if (_isInit) {
       setState(() {
-        _isLoading = false;
+        _isLoading = true;
       });
-    });
-    //}
-    //_isInit = false;
+      Provider.of<Products>(context, listen: false)
+          .fetchProducts(false)
+          .then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
     super.didChangeDependencies();
   }
 

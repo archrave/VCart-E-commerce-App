@@ -41,7 +41,7 @@ class Orders with ChangeNotifier {
       loadedOrders.add(
         OrderItem(
           id: orderKey,
-          amount: orderData['amount'],
+          amount: orderData['amount'] + .0,
           // Converting that ISO6601 string back to a DateTime Object
           dateTime: DateTime.parse(orderData['dateTime']),
           products: (orderData['products'] as List<dynamic>)

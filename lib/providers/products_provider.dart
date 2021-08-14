@@ -28,6 +28,7 @@ class Products with ChangeNotifier {
   }
 
   Future<void> fetchProducts([bool filterByUser = false]) async {
+    print('fetching started');
     final filterString =
         filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     var url = Uri.parse(
@@ -59,6 +60,7 @@ class Products with ChangeNotifier {
       });
       _items = loadedProducts;
       notifyListeners();
+      print('fetching over');
     } catch (error) {
       throw (error);
     }
