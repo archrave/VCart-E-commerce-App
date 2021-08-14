@@ -35,15 +35,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
       appBar: AppBar(
         title: Text('Your Orders'),
       ),
-      body: orderData.orders.isEmpty
-          ? Center(
-              child: Text(
-              'Your Orders are empty. Try buying some products!',
-              style: TextStyle(fontSize: 20, color: Colors.grey),
-              textAlign: TextAlign.center,
-              softWrap: true,
-            ))
-          : (_isLoading == true
+      body: orderData.orders.isNotEmpty
+          ? (_isLoading == true
               ? Center(child: CircularProgressIndicator())
               : Container(
                   height: double.infinity,
@@ -53,7 +46,15 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     },
                     itemCount: orderData.orders.length,
                   ),
-                )),
+                ))
+          : Center(
+              child: Text(
+                'Your Orders are empty. Try buying some products!',
+                style: TextStyle(fontSize: 20, color: Colors.grey),
+                textAlign: TextAlign.center,
+                softWrap: true,
+              ),
+            ),
     );
   }
 }
