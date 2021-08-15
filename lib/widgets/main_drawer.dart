@@ -6,6 +6,32 @@ import '../screens/user_products_screen.dart';
 import '../screens/products_screen.dart';
 
 class MainDrawer extends StatelessWidget {
+  // void _showLogoutDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (ctx) => AlertDialog(
+  //       title: Text('Confirm Logout'),
+  //       content: Text('Are you sure you want to logout?'),
+  //       actions: [
+  //         FlatButton(
+  //             child: Text('Cancel'),
+  //             textColor: Theme.of(ctx).accentColor,
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             }),
+  //         FlatButton(
+  //           child: Text('Logout'),
+  //           textColor: Theme.of(ctx).accentColor,
+  //           onPressed: () {
+  //             Navigator.of(context).pop();
+  //             Provider.of<Auth>(ctx, listen: false).logout();
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
