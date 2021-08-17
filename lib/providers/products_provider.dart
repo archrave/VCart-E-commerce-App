@@ -60,7 +60,6 @@ class Products with ChangeNotifier {
       });
       _items = loadedProducts;
       notifyListeners();
-      print('fetching over');
     } catch (error) {
       throw (error);
     }

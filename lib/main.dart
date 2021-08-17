@@ -11,6 +11,7 @@ import './screens/product_detail_screen.dart';
 import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
 import './screens/auth_screen.dart';
+import './screens/splash_loading_screen.dart';
 
 void main() {
   runApp(ShopApp());
@@ -63,7 +64,24 @@ class ShopApp extends StatelessWidget {
             accentColor: Color(0xFFe6505d),
             fontFamily: 'Lato',
           ),
-          home: auth.isAuth ? ProductsScreen() : AuthScreen(),
+          home: auth.isAuth
+              ? ProductsScreen()
+              : FutureBuilder(
+                  future: auth.tryAutoLogin(),
+
+                  // Below we're checking if the connection state is waiting or not, if so, then we are displaying a loading text
+                  // One might think that having another if check after this should be done that whether we reiceve correct login data or not, but
+                  // When the tryAutologin fucntion runs it calls notifyListeners which makes the Consumer rebuild, then it checks whether auth.isAuth or not
+                  // which by then will be decided.
+                  builder: (nctx, authSnapshot) =>
+                      authSnapshot.connectionState == ConnectionState.waiting
+                          ? SplashLoadingScreen()
+                          :
+                          // authSnapshot.data == false
+                          // ?
+                          AuthScreen()
+                  //: ProductsScreen(),
+                  ),
           routes: {
             ProductsScreen.routeName: (ctx) => ProductsScreen(),
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),

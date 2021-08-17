@@ -46,7 +46,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Widget build(BuildContext context) {
     // final productsData = Provider.of<Products>(context, listen: false);
     // final cart = Provider.of<Cart>(context, listen: false);
-    print('> Products screen build starts!');
     return Scaffold(
       appBar: AppBar(
         title: Text('Virtual Shop'),

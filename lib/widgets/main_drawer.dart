@@ -81,6 +81,9 @@ class MainDrawer extends StatelessWidget {
             title: Text('Logout', style: TextStyle(fontSize: 15)),
             onTap: () {
               Navigator.of(context).pop();
+              // Naviagting to the home screen, as we want to rebuild the Consumer<Auth> inside the main.dart so that the logic for selecting the right screen on bootup, runs again.
+              // Basically this makes sures that we don't see any unexpected behaviours when logging out
+              Navigator.of(context).pushReplacementNamed('/');
               Provider.of<Auth>(context, listen: false).logout();
             },
           ),

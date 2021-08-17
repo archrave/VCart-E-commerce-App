@@ -129,7 +129,6 @@ class _AuthCardState extends State<AuthCard> {
     });
 
     try {
-      print('** entered try block');
       if (_authMode == AuthMode.Login) {
         // Log user in
         await Provider.of<Auth>(context, listen: false).login(

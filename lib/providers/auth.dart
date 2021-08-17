@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../models/http_exception.dart';
 
@@ -41,7 +42,6 @@ class Auth with ChangeNotifier {
           },
         ),
       );
-      print('**** awaited for post request in authenticate');
       final responseData = json.decode(response.body);
       print(responseData.runtimeType);
       if (responseData['error'] != null) {
@@ -58,6 +58,20 @@ class Auth with ChangeNotifier {
       );
       _autoLogout();
       notifyListeners();
+
+      // Storing the login data in the device storage, so that when the user closes the app, they automatically get logged in using this data.
+      final prefs = await SharedPreferences.getInstance();
+
+      // Creating a json (which is inherently a string, here we're using that string to store a map, as maps are stored in jsons)
+      // Since json is a string we are calling that setString method from prefs
+      final userData = json.encode(
+        {
+          'token': _token,
+          'userId': _userId,
+          'expiryDate': _expiryDate.toIso8601String(),
+        },
+      );
+      prefs.setString('userData', userData);
     } catch (error) {
       throw error;
     }
@@ -71,7 +85,29 @@ class Auth with ChangeNotifier {
     return _authenticate(email, password, 'signInWithPassword');
   }
 
-  void logout() {
+  // Adding a method to read the device storage to check whether the user login data is there or not.
+
+  Future<bool> tryAutoLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('userData')) {
+      return false;
+    }
+    final extractedUserData =
+        json.decode(prefs.getString('userData')) as Map<String, Object>;
+    print(extractedUserData);
+    final expiryDate = DateTime.parse(extractedUserData['expiryDate']);
+    if (expiryDate.isBefore(DateTime.now())) {
+      return false;
+    }
+    _token = extractedUserData['token'];
+    _userId = extractedUserData['userId'];
+    _expiryDate = expiryDate;
+    notifyListeners();
+    _autoLogout();
+    return true;
+  }
+
+  Future<void> logout() async {
     _token = null;
     _userId = null;
     _expiryDate = null;
@@ -80,6 +116,9 @@ class Auth with ChangeNotifier {
     else
       _authTimer = null;
     notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    // prefs.remove('userData');              // if we want to only delete this particular data from device storage
+    prefs.clear(); // if we want to purge all data in the device
   }
 
   void _autoLogout() {
