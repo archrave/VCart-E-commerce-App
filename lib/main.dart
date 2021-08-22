@@ -27,10 +27,10 @@ class ShopApp extends StatelessWidget {
       // Following is the most commonly used provider, it allows us to listen to a class, and whenever that class updates, it rebuilds only those widgets which were listening to the data.
       // .value approach isn't good here since we're creating a BRAND new instance of this Products() class
       providers: [
-        //create: instead of builder: in provider v5.0
+        // create: instead of builder: in provider v5.0
 
         /* This create:/builder: method below basically provides the SAME instance to all the widgets below this widget tree
-          which means the same Object of the 'Providers' class, through which we can acces the same 'items' list  */
+          which means the same Object of the 'Providers' class, through which we can access the same 'items' list  */
 
         /* We have to make sure that Auth provider is declared at the top, so that the proxyprovider (products) can depend on it. */
         ChangeNotifierProvider(
@@ -70,8 +70,8 @@ class ShopApp extends StatelessWidget {
                   future: auth.tryAutoLogin(),
 
                   // Below we're checking if the connection state is waiting or not, if so, then we are displaying a loading text
-                  // One might think that having another if check after this should be done that whether we reiceve correct login data or not, but
-                  // When the tryAutologin fucntion runs it calls notifyListeners which makes the Consumer rebuild, then it checks whether auth.isAuth or not
+                  // One might think that we should have another if check after this should be done that whether we recieve correct login data or not, but
+                  // When the tryAutologin function runs it calls notifyListeners which makes the Consumer rebuild, then it checks whether auth.isAuth or not
                   // which by then will be decided.
                   builder: (nctx, authSnapshot) =>
                       authSnapshot.connectionState == ConnectionState.waiting
