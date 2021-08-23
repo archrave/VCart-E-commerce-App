@@ -2,7 +2,7 @@
     package="com.divyanshjoshi.vcart">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="VCart VIrtual Shopping"
+        android:label="VCart Virtual Shopping"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

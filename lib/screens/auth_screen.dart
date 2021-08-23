@@ -357,7 +357,7 @@ class _AuthCardState extends State<AuthCard> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       padding: EdgeInsets.symmetric(
-                          horizontal: 105.0, vertical: 10.0),
+                          horizontal: 80.0, vertical: 10.0),
                       color: Theme.of(context).accentColor,
                       textColor:
                           Theme.of(context).primaryTextTheme.button.color,
