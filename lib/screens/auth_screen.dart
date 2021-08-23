@@ -39,7 +39,7 @@ class AuthScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: 100,
+                    height: 70,
                   ),
                   Flexible(
                     child: Container(
@@ -83,7 +83,7 @@ class AuthScreen extends StatelessWidget {
                             style: TextStyle(
                               // color:
                               //     Theme.of(context).primaryColor.withAlpha(250),
-                              fontSize: 50,
+                              fontSize: 45,
                               fontFamily: 'Nexa',
                               //fontWeight: FontWeight.w300,
                             ),
@@ -92,7 +92,7 @@ class AuthScreen extends StatelessWidget {
                             'CART',
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
-                              fontSize: 50,
+                              fontSize: 45,
                               fontFamily: 'Nexa',
                               fontWeight: FontWeight.w300,
                             ),
@@ -100,6 +100,9 @@ class AuthScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Container(
                     padding: EdgeInsets.all(8),
