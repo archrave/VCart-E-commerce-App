@@ -74,6 +74,8 @@ flutter:
         - asset: fonts/NexaRegular.otf
         - asset: fonts/NexaBold.otf
           weight: 700
+        - asset: fonts/NexaBlack.otf
+          weight: 900
         - asset: fonts/NexaLight.otf
           weight: 300
   #

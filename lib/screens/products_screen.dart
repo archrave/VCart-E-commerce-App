@@ -48,7 +48,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
     // final cart = Provider.of<Cart>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Virtual Shop'),
+        title: Text(
+          'VCART',
+          style: TextStyle(fontFamily: 'Nexa'),
+        ),
         actions: [
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {

@@ -81,9 +81,8 @@ class AuthScreen extends StatelessWidget {
                           Text(
                             'V',
                             style: TextStyle(
-                              // color:
-                              //     Theme.of(context).primaryColor.withAlpha(250),
-                              fontSize: 45,
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 40,
                               fontFamily: 'Nexa',
                               //fontWeight: FontWeight.w300,
                             ),
@@ -92,7 +91,7 @@ class AuthScreen extends StatelessWidget {
                             'CART',
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
-                              fontSize: 45,
+                              fontSize: 40,
                               fontFamily: 'Nexa',
                               fontWeight: FontWeight.w300,
                             ),
@@ -107,25 +106,23 @@ class AuthScreen extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(8),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: 50,
-                        ),
+                        // SizedBox(width: 50),
                         Text(
                           'Hello',
                           style: TextStyle(
-                            fontSize: 33,
+                            fontSize: 35,
                             fontFamily: 'Nexa',
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                         Text(
                           ' there!',
                           style: TextStyle(
-                            fontSize: 33,
+                            fontSize: 35,
                             fontFamily: 'Nexa',
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                       ],
@@ -172,11 +169,12 @@ class _AuthCardState extends State<AuthCard> {
         content: Text(message),
         actions: [
           RaisedButton(
-              child: Text('Close'),
-              color: Theme.of(ctx).accentColor,
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              }),
+            child: Text('Close'),
+            color: Theme.of(ctx).accentColor,
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
         ],
       ),
     );
@@ -271,7 +269,12 @@ class _AuthCardState extends State<AuthCard> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'E-Mail'),
+                  decoration: InputDecoration(
+                      labelText: 'E-Mail',
+                      prefixIcon: Icon(
+                        Icons.email_outlined,
+                        size: 20,
+                      )),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value.isEmpty || !value.contains('@')) {
@@ -284,7 +287,13 @@ class _AuthCardState extends State<AuthCard> {
                   },
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Password'),
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    prefixIcon: Icon(
+                      Icons.lock_outlined,
+                      size: 20,
+                    ),
+                  ),
                   obscureText: true,
                   controller: _passwordController,
                   validator: (value) {
@@ -300,7 +309,17 @@ class _AuthCardState extends State<AuthCard> {
                 if (_authMode == AuthMode.Signup)
                   TextFormField(
                     enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(labelText: 'Confirm Password'),
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      // icon: Icon(
+                      //   Icons.lock,
+                      //   size: 20,
+                      // ),
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        size: 20,
+                      ),
+                    ),
                     obscureText: true,
                     validator: _authMode == AuthMode.Signup
                         ? (value) {
@@ -317,17 +336,30 @@ class _AuthCardState extends State<AuthCard> {
                 if (_isLoading)
                   CircularProgressIndicator()
                 else
-                  RaisedButton(
-                    child:
-                        Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
-                    onPressed: _submit,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context).accentColor.withOpacity(0.6),
+                          blurRadius: 20,
+                          spreadRadius: 1,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
                     ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 100.0, vertical: 10.0),
-                    color: Theme.of(context).accentColor,
-                    textColor: Theme.of(context).primaryTextTheme.button.color,
+                    child: RaisedButton(
+                      child: Text(
+                          _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
+                      onPressed: _submit,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 105.0, vertical: 10.0),
+                      color: Theme.of(context).accentColor,
+                      textColor:
+                          Theme.of(context).primaryTextTheme.button.color,
+                    ),
                   ),
                 FlatButton(
                   child: Text(
