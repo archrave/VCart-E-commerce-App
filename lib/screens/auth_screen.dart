@@ -18,15 +18,16 @@ class AuthScreen extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
-                  Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0, 1],
-              ),
+              color: Theme.of(context).accentColor.withOpacity(0.05),
+              // gradient: LinearGradient(
+              //   colors: [
+              //     Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
+              //     Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
+              //   ],
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.bottomRight,
+              //   stops: [0, 1],
+              // ),
             ),
           ),
           SingleChildScrollView(
@@ -34,37 +35,97 @@ class AuthScreen extends StatelessWidget {
               height: deviceSize.height,
               width: deviceSize.width,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  SizedBox(
+                    height: 100,
+                  ),
                   Flexible(
                     child: Container(
                       margin: EdgeInsets.only(bottom: 20.0),
                       padding:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 94.0),
-                      transform: Matrix4.rotationZ(-8 * pi / 180)
-                        ..translate(-10.0),
+                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 50.0),
+                      // transform: Matrix4.rotationZ(-8 * pi / 180)
+                      //   ..translate(-10.0),
                       // ..translate(-10.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.deepOrange.shade900,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 8,
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                          )
+                        color: Colors.green.shade400.withOpacity(0),
+                        // boxShadow: [
+                        //   BoxShadow(
+                        //     blurRadius: 1,
+                        //     color: Colors.black26,
+                        //     offset: Offset(0, 2),
+                        //   )
+                        // ],
+                      ),
+
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 70,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 13),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  'images/cartpic.png',
+                                  scale: 8,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            'V',
+                            style: TextStyle(
+                              // color:
+                              //     Theme.of(context).primaryColor.withAlpha(250),
+                              fontSize: 50,
+                              fontFamily: 'Nexa',
+                              //fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                          Text(
+                            'CART',
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor,
+                              fontSize: 50,
+                              fontFamily: 'Nexa',
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
                         ],
                       ),
-                      child: Text(
-                        'VShop',
-                        style: TextStyle(
-                          color: Theme.of(context).accentTextTheme.title.color,
-                          fontSize: 50,
-                          fontFamily: 'Anton',
-                          fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 50,
                         ),
-                      ),
+                        Text(
+                          'Hello',
+                          style: TextStyle(
+                            fontSize: 33,
+                            fontFamily: 'Nexa',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          ' there!',
+                          style: TextStyle(
+                            fontSize: 33,
+                            fontFamily: 'Nexa',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Flexible(
@@ -258,20 +319,22 @@ class _AuthCardState extends State<AuthCard> {
                         Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
                     onPressed: _submit,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-                    color: Theme.of(context).primaryColor,
+                        EdgeInsets.symmetric(horizontal: 100.0, vertical: 10.0),
+                    color: Theme.of(context).accentColor,
                     textColor: Theme.of(context).primaryTextTheme.button.color,
                   ),
                 FlatButton(
                   child: Text(
-                      '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+                    '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD',
+                    style: TextStyle(fontSize: 12),
+                  ),
                   onPressed: _switchAuthMode,
-                  padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
+                  padding: EdgeInsets.fromLTRB(30, 10, 30, 8),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  textColor: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).accentColor,
                 ),
               ],
             ),
