@@ -39,7 +39,7 @@ class AuthScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: 70,
+                    height: 50,
                   ),
                   Flexible(
                     child: Container(
@@ -115,6 +115,7 @@ class AuthScreen extends StatelessWidget {
                             fontSize: 35,
                             fontFamily: 'Nexa',
                             fontWeight: FontWeight.w900,
+                            color: Colors.blueGrey[900],
                           ),
                         ),
                         Text(
@@ -123,6 +124,7 @@ class AuthScreen extends StatelessWidget {
                             fontSize: 35,
                             fontFamily: 'Nexa',
                             fontWeight: FontWeight.w900,
+                            color: Colors.blueGrey[900],
                           ),
                         ),
                       ],
