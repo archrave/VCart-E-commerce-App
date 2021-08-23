@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shop_app">
-   <application
-        android:label="shop_app"
+    package="com.divyanshjoshi.vcart">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:label="VCart VIrtual Shopping"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
