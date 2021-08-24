@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.divyanshjoshi.vcart">
-    <uses-permission android:name="android.permission.INTERNET"/>
+    package="com.divyanshjoshi.vcart_virtual_shopping">
+    <!-- <uses-permission android:name="android.permission.INTERNET"/> -->
     <application
         android:label="VCart Virtual Shopping"
         android:icon="@mipmap/ic_launcher">
