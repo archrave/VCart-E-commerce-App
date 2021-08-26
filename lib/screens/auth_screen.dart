@@ -184,16 +184,20 @@ class _AuthCardState extends State<AuthCard>
         curve: Curves.linear,
       ),
     );
-    //Adding a listener to call setState to redraw the screen.
-    _heightAnimation.addListener(
-      () => setState(() {}),
-    );
-    //    Animation set up syntax:
+
+    // Using AnimatedBuilder now instead of manually managing a listener
+
+    // //Adding a listener to call setState to redraw the screen.
+    // _heightAnimation.addListener(
+    //   () => setState(() {}),
+    // );
+
     /*
+      Animation set up syntax:
 
-  _controller = AnimationController(vsync:, duration:);
-  _animation = Tween<>(begin: , end:, ).animate( CurvedAnimation(parent: (contoller), curve: (animation type),),);
-
+    _controller = AnimationController(vsync:, duration:);
+    _animation = Tween<>(begin: , end:, ).animate( CurvedAnimation(parent: (contoller), curve: (animation type),),);
+ 
    */
   }
 
@@ -304,18 +308,27 @@ class _AuthCardState extends State<AuthCard>
         borderRadius: BorderRadius.circular(10.0),
       ),
       elevation: 8.0,
-      child: Container(
-        // height: _authMode == AuthMode.Signup ? 320 : 260,
+      child: AnimatedBuilder(
+        animation: _heightAnimation,
+        builder: (ctx, animchild) => Container(
+          // height: _authMode == AuthMode.Signup ? 320 : 260,
 
-        // Calling the height component of the animation.
-        height: _heightAnimation.value.height,
-        constraints:
-            // BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
-            BoxConstraints(
-          minHeight: _heightAnimation.value.height,
+          // Calling the height component of the animation.
+          height: _heightAnimation.value.height,
+          constraints:
+              // BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
+              BoxConstraints(
+            minHeight: _heightAnimation.value.height,
+          ),
+          width: deviceSize.width * 0.75,
+          padding: EdgeInsets.all(16.0),
+          // Connecting the Form widget with AnimatedBuilder's child argument
+          child: animchild,
         ),
-        width: deviceSize.width * 0.75,
-        padding: EdgeInsets.all(16.0),
+
+        // Not writing child: in the container above, but instead using the child: argument of this AnimatedBuilder widget
+        // This child doesn't rebuild whenever the animation runs, i.e. whenever the AnimatedBuilder reruns.
+        // And obviously we don't want to rebuild this Form.
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
