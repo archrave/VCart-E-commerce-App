@@ -153,7 +153,9 @@ class AuthCard extends StatefulWidget {
   _AuthCardState createState() => _AuthCardState();
 }
 
-class _AuthCardState extends State<AuthCard> {
+// This Mixin provides a few more methods and properties which are implicitly used by vsync and animationcontroller,etc. (behind the scenes). using this to apply animations.
+class _AuthCardState extends State<AuthCard>
+    with SingleTickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
@@ -162,6 +164,45 @@ class _AuthCardState extends State<AuthCard> {
   };
   var _isLoading = false;
   final _passwordController = TextEditingController();
+  // var containerHeight = 260;
+  AnimationController _controller;
+  Animation<Size> _heightAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 800),
+    );
+    _heightAnimation = Tween<Size>(
+            begin: Size(double.infinity, 260), end: Size(double.infinity, 320))
+        .animate(
+      //Curve.linear animates it linearly
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.linear,
+      ),
+    );
+    //Adding a listener to call setState to redraw the screen.
+    _heightAnimation.addListener(
+      () => setState(() {}),
+    );
+    //    Animation set up syntax:
+    /*
+
+  _controller = AnimationController(vsync:, duration:);
+  _animation = Tween<>(begin: , end:, ).animate( CurvedAnimation(parent: (contoller), curve: (animation type),),);
+
+   */
+  }
+
+// Disposing the controller
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -244,10 +285,14 @@ class _AuthCardState extends State<AuthCard> {
       setState(() {
         _authMode = AuthMode.Signup;
       });
+      // Kicking off the animation
+      _controller.forward();
     } else {
       setState(() {
         _authMode = AuthMode.Login;
       });
+      // Shrinking the container again
+      _controller.reverse();
     }
   }
 
@@ -260,9 +305,15 @@ class _AuthCardState extends State<AuthCard> {
       ),
       elevation: 8.0,
       child: Container(
-        height: _authMode == AuthMode.Signup ? 320 : 260,
+        // height: _authMode == AuthMode.Signup ? 320 : 260,
+
+        // Calling the height component of the animation.
+        height: _heightAnimation.value.height,
         constraints:
-            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
+            // BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
+            BoxConstraints(
+          minHeight: _heightAnimation.value.height,
+        ),
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
         child: Form(
