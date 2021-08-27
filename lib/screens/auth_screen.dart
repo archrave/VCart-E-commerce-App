@@ -148,7 +148,7 @@ class _AuthCardState extends State<AuthCard>
   // var containerHeight = 260;
   AnimationController _controller;
   Animation<Size> _heightAnimation;
-
+  Animation<double> _opacityAnimation;
   @override
   void initState() {
     super.initState();
@@ -163,6 +163,12 @@ class _AuthCardState extends State<AuthCard>
       CurvedAnimation(
         parent: _controller,
         curve: Curves.linear,
+      ),
+    );
+    _opacityAnimation = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeIn,
       ),
     );
 
@@ -276,7 +282,7 @@ class _AuthCardState extends State<AuthCard>
       setState(() {
         _authMode = AuthMode.Login;
       });
-      // Shrinking the container again
+      // Kicking back the animation (apacityAnim)
       _controller.reverse();
     }
   }
@@ -295,7 +301,7 @@ class _AuthCardState extends State<AuthCard>
       // For this we don't need that animationController and the pre declared heightAnimation
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
-        curve: Curves.easeIn,
+        curve: Curves.linear,
         height: _authMode == AuthMode.Signup ? 320 : 260,
 
         // Calling the height component of the animation.
@@ -351,30 +357,43 @@ class _AuthCardState extends State<AuthCard>
                     _authData['password'] = value;
                   },
                 ),
-                if (_authMode == AuthMode.Signup)
-                  TextFormField(
-                    enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      // icon: Icon(
-                      //   Icons.lock,
-                      //   size: 20,
-                      // ),
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        size: 20,
-                      ),
-                    ),
-                    obscureText: true,
-                    validator: _authMode == AuthMode.Signup
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return 'Passwords do not match!';
-                            }
-                            return null;
-                          }
-                        : null,
+                // if (_authMode == AuthMode.Signup)
+
+                // Adding this so that extra space w 0 opacity goes away(shrinks)
+                AnimatedContainer(
+                  constraints: BoxConstraints(
+                    minHeight: _authMode == AuthMode.Signup ? 60 : 0,
+                    maxHeight: _authMode == AuthMode.Signup ? 120 : 0,
                   ),
+                  curve: Curves.easeIn,
+                  duration: Duration(milliseconds: 300),
+                  child: FadeTransition(
+                    opacity: _opacityAnimation,
+                    child: TextFormField(
+                      enabled: _authMode == AuthMode.Signup,
+                      decoration: InputDecoration(
+                        labelText: 'Confirm Password',
+                        // icon: Icon(
+                        //   Icons.lock,
+                        //   size: 20,
+                        // ),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          size: 20,
+                        ),
+                      ),
+                      obscureText: true,
+                      validator: _authMode == AuthMode.Signup
+                          ? (value) {
+                              if (value != _passwordController.text) {
+                                return 'Passwords do not match!';
+                              }
+                              return null;
+                            }
+                          : null,
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),
