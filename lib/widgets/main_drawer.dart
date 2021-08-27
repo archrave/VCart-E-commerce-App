@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../helpers/custom_route.dart';
 import '../providers/auth.dart';
 import '../screens/orders_screen.dart';
 import '../screens/user_products_screen.dart';
@@ -72,6 +73,12 @@ class MainDrawer extends StatelessWidget {
             leading: Icon(Icons.manage_accounts),
             title: Text('Manage your products', style: TextStyle(fontSize: 15)),
             onTap: () {
+              //Follwing is the connection to a custom route animation
+              // //   // Navigator.of(context).pushReplacement(
+              // //   //   CustomRoute(
+              // //   //     builder: (ctx) => UserProductsScreen(),
+              // //   //   ),
+              // //   // );
               Navigator.of(context)
                   .pushReplacementNamed(UserProductsScreen.routeName);
             },
