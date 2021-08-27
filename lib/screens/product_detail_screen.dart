@@ -19,17 +19,23 @@ class ProductDetailScreen extends StatelessWidget {
     final thisProduct =
         Provider.of<Products>(context, listen: false).findById(prodId);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(thisProduct.title),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              height: 300,
-              width: double.infinity,
-              child: Hero(
+      // appBar: AppBar(
+      //   title: Text(thisProduct.title),
+      // ),
+
+      // We wanna scoll and change that image into the appbar
+      body: CustomScrollView(
+        // It doesn't take a child but a list of slivers
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 300,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                thisProduct.title,
+                style: TextStyle(color: Colors.white),
+              ),
+              background: Hero(
                 // Added the same tag as in the previous screen
                 tag: prodId,
                 child: Image.network(
@@ -38,28 +44,46 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 10,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '₹${thisProduct.price}',
+                  style: TextStyle(color: Colors.grey, fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    '${thisProduct.description}',
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                SizedBox(height: 800),
+              ],
             ),
-            Text(
-              '₹${thisProduct.price}',
-              style: TextStyle(color: Colors.grey, fontSize: 20),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                '${thisProduct.description}',
-                textAlign: TextAlign.center,
-                softWrap: true,
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
+        // child: Column(
+        //   children: [
+        //     Container(
+        //       padding: const EdgeInsets.symmetric(horizontal: 10),
+        //       height: 300,
+        //       width: double.infinity,
+        //       child:
+        //     ),
+
+        //],
       ),
     );
   }
