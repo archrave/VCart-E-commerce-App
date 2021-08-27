@@ -17,28 +17,37 @@ class _OrderUIState extends State<OrderUI> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(10),
-      child: Column(
-        children: [
-          ListTile(
-            title: Text('₹${widget.order.amount}'),
-            subtitle: Text(
-              DateFormat('dd/MM/yyyy hh:mm').format(widget.order.dateTime),
+    return AnimatedContainer(
+      duration: Duration(
+        milliseconds: 150,
+      ),
+      height:
+          //Increased the height 100 more than the inner container
+          _expanded ? min(widget.order.products.length * 20.0 + 140, 200) : 95,
+      child: Card(
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            ListTile(
+              title: Text('₹${widget.order.amount}'),
+              subtitle: Text(
+                DateFormat('dd/MM/yyyy hh:mm').format(widget.order.dateTime),
+              ),
+              trailing: IconButton(
+                icon: Icon(!_expanded ? Icons.expand_more : Icons.expand_less),
+                onPressed: () {
+                  setState(() {
+                    _expanded = !_expanded;
+                  });
+                },
+              ),
             ),
-            trailing: IconButton(
-              icon: Icon(!_expanded ? Icons.expand_more : Icons.expand_less),
-              onPressed: () {
-                setState(() {
-                  _expanded = !_expanded;
-                });
-              },
-            ),
-          ),
-          if (_expanded)
-            Container(
+            AnimatedContainer(
+              duration: Duration(milliseconds: 150),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-              height: min(widget.order.products.length * 20.0 + 40, 180),
+              height: _expanded
+                  ? min(widget.order.products.length * 20.0 + 40, 180)
+                  : 0,
               child: ListView(
                 children: widget.order.products.map((prod) {
                   return Row(
@@ -57,7 +66,8 @@ class _OrderUIState extends State<OrderUI> {
                 }).toList(),
               ),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }
