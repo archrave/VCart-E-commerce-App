@@ -29,9 +29,13 @@ class ProductDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               height: 300,
               width: double.infinity,
-              child: Image.network(
-                thisProduct.imageUrl,
-                fit: BoxFit.cover,
+              child: Hero(
+                // Added the same tag as in the previous screen
+                tag: prodId,
+                child: Image.network(
+                  thisProduct.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(
