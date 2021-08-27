@@ -19,15 +19,6 @@ class AuthScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: Theme.of(context).accentColor.withOpacity(0.05),
-              // gradient: LinearGradient(
-              //   colors: [
-              //     Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
-              //     Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
-              //   ],
-              //   begin: Alignment.topLeft,
-              //   end: Alignment.bottomRight,
-              //   stops: [0, 1],
-              // ),
             ),
           ),
           SingleChildScrollView(
@@ -41,65 +32,55 @@ class AuthScreen extends StatelessWidget {
                   SizedBox(
                     height: 50,
                   ),
-                  Flexible(
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 50.0),
-                      // transform: Matrix4.rotationZ(-8 * pi / 180)
-                      //   ..translate(-10.0),
-                      // ..translate(-10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.green.shade400.withOpacity(0),
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //     blurRadius: 1,
-                        //     color: Colors.black26,
-                        //     offset: Offset(0, 2),
-                        //   )
-                        // ],
-                      ),
-
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 70,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 13),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  'images/cartpic.png',
-                                  scale: 8,
-                                ),
-                              ],
-                            ),
+                  // Commented this flexible to make the card entirely visible in signup mode
+                  // Flexible(
+                  //   child:
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 50.0),
+                    // transform: Matrix4.rotationZ(-8 * pi / 180)
+                    //   ..translate(-10.0),
+                    // ..translate(-10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 70,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 13),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'images/cartpic.png',
+                                scale: 8,
+                              ),
+                            ],
                           ),
-                          Text(
-                            'V',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 40,
-                              fontFamily: 'Nexa',
-                              //fontWeight: FontWeight.w300,
-                            ),
+                        ),
+                        Text(
+                          'V',
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 40,
+                            fontFamily: 'Nexa',
+                            //fontWeight: FontWeight.w300,
                           ),
-                          Text(
-                            'CART',
-                            style: TextStyle(
-                              color: Theme.of(context).accentColor,
-                              fontSize: 40,
-                              fontFamily: 'Nexa',
-                              fontWeight: FontWeight.w300,
-                            ),
+                        ),
+                        Text(
+                          'CART',
+                          style: TextStyle(
+                            color: Theme.of(context).accentColor,
+                            fontSize: 40,
+                            fontFamily: 'Nexa',
+                            fontWeight: FontWeight.w300,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
+                  // ),
                   SizedBox(
                     height: 10,
                   ),
@@ -173,7 +154,7 @@ class _AuthCardState extends State<AuthCard>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 800),
+      duration: Duration(milliseconds: 300),
     );
     _heightAnimation = Tween<Size>(
             begin: Size(double.infinity, 260), end: Size(double.infinity, 320))
@@ -193,7 +174,7 @@ class _AuthCardState extends State<AuthCard>
     // );
 
     /*
-      Animation set up syntax:
+      Animation set up syntax :
 
     _controller = AnimationController(vsync:, duration:);
     _animation = Tween<>(begin: , end:, ).animate( CurvedAnimation(parent: (contoller), curve: (animation type),),);
@@ -313,7 +294,7 @@ class _AuthCardState extends State<AuthCard>
 
       // For this we don't need that animationController and the pre declared heightAnimation
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 600),
+        duration: Duration(milliseconds: 300),
         curve: Curves.easeIn,
         height: _authMode == AuthMode.Signup ? 320 : 260,
 
