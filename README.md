@@ -1,5 +1,5 @@
-# Virtual Shopping App
- 
+# VCart A Dummy E-commerce App
+
 An android and iOS app to simulate an online shopping service via a virtual currency.
 
 ## Features 
