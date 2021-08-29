@@ -38,7 +38,7 @@ class Product with ChangeNotifier {
           isFavorite,
         ),
       );
-      //    await http.patch(url, body: json.encode({'isFavorite': isFavorite}));
+      //  await http.patch(url, body: json.encode({'isFavorite': isFavorite}));
       if (response.statusCode >= 400) {
         _setFavValue(oldStatus);
       }

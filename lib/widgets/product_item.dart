@@ -24,6 +24,7 @@ class ProductItem extends StatelessWidget {
           child: Hero(
             //  Tag to pass to pass to the new screen
             tag: product.id,
+            // Widget to convert the image to the appbar on scrolling down
             child: FadeInImage(
               placeholder: AssetImage('images/product-placeholder.png'),
               image: NetworkImage(
@@ -40,7 +41,7 @@ class ProductItem extends StatelessWidget {
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          //Consumer builds some parts of a widget tree, unlike the Provider, which rebuilds the entire tree
+          // Consumer builds some parts of a widget tree, unlike the Provider, which rebuilds the entire tree
           leading: Consumer<Product>(
             builder: (ctx, product, _) => IconButton(
               icon: Icon(
@@ -54,7 +55,7 @@ class ProductItem extends StatelessWidget {
           ),
           trailing: IconButton(
 
-              //After adding an item we're also displaying a snackbar notifier
+              // After adding an item we're also displaying a snackbar notifier
               onPressed: () {
                 cart.addItem(product.id, product.price, product.title);
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
