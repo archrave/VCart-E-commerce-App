@@ -1,6 +1,6 @@
 # VCart A Dummy E-commerce App
 
-An android and iOS app to simulate an online shopping service via a virtual currency.
+A dummy e-commerce mobile application for both android and iOS where a user can buy products, add them to their cart, mark as favorite and even sell their own products.
 
 ## Features 
  - Favorite button to mark and save your favourite products
