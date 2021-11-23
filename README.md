@@ -57,4 +57,4 @@ To run this app on a virtual machine (mobile emulator), your android device or y
 ```
 flutter run
 ```
-(Must have flutter in the system PATH, and USB Debugging enabled if you're using an Andriod device)
+(Must have flutter in the system PATH, and USB Debugging enabled if you're using an Android device)
