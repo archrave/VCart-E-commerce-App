@@ -7,7 +7,7 @@ A dummy e-commerce mobile application for both android and iOS where a user can 
  - Side drawer to navigate 'Your Orders' and various other options
  - State management using the provider package
  - Users could sell their own products
- - Firebase for maintaining backend
+ - Firebase's REST APIs for maintaining backend
  - User Authentication system
 
 ## Tools
